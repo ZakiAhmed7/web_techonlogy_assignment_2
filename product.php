@@ -21,12 +21,10 @@
         } else {
             echo "No record found";
         }
-    } else {
-        echo "Method not allowed";
-    }
+    } 
 
     // Create
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    else if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_name = $_POST['product_name'];
         $description = $_POST['description'];
         $image = $_POST['image'];
@@ -43,15 +41,13 @@
         } else {
             echo "Error: " . $sql . "<br>". mysqli_error($db_connection_status); 
         }
-    } else {
-        echo "Method not allowed";
     }
 
     //update
-    if($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    else if($_SERVER['REQUEST_METHOD'] === 'PUT') {
         $data = json_decode(file_get_contents("php://input"), true);
 
-        $product_id = data['product_id'];
+        $product_id = $data['product_id'];
         $product_name = $data['product_name'];
         $description = $data['description'];
         $image = $data['image'];
@@ -59,24 +55,22 @@
         $shipping_cost = $data['shipping_cost'];
 
         $sql_query = "UPDATE product 
-                        SET product_id='$product_id',
-                        product_name='product_name',
+                        SET product_name='$product_name',
                         description='$description',
                         image='$image',
                         pricing='$pricing',
-                        shipping_cost='$shipping_cost'";
+                        shipping_cost='$shipping_cost'
+                        WHERE product_id='$product_id'";
 
         if(mysqli_query($db_connection_status, $sql_query)) {
-            echo "Recorde update successfully";
+            echo "Record update successfully";
         } else {
             echo "Error: " . $sql. "<br>" . mysqli_error($db_connection_status);
         }
-    } else {
-        echo "Method not provided";
     }
 
     // Delete
-    if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    else if($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $product_id = $data['product_id'];
@@ -88,8 +82,6 @@
         } else {
             echo "Error:  " .$sql. "<br>". mysqli_error($db_connection_status);
         }
-    } else {
-        echo "Method not allowed";
     }
 
     mysqli_close($db_connection_status);

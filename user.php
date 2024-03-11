@@ -31,14 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // No rows found
             echo "No records found";
         }
-    } else {
-        // Method not allowed
-        http_response_code(405);
-        echo "Method not allowed";
     }
 
 // Step 2: Handle POST request to insert data
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get POST data
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -58,13 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insertion failed
         echo "Error: " . $sql . "<br>" . mysqli_error($connection);
     }
-} else {
-    // Method not allowed
-    http_response_code(405);
-    echo "Method not allowed";
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+else if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     // Parse JSON data from the request body
     $data = json_decode(file_get_contents("php://input"), true);
     
@@ -90,15 +82,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         // Update failed
         echo "Error: " . $sql . "<br>" . mysqli_error($connection);
     }
-} else {
-    // Method not allowed
-    http_response_code(405);
-    echo "Method not allowed";
 }
 
 
 // Step 2: Handle DELETE request to delete data
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     // Parse JSON data from the request body
     $data = json_decode(file_get_contents("php://input"), true);
     
@@ -124,4 +112,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
 // Close the connection
 mysqli_close($connection);
-    ?>
+?>
